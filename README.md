@@ -1,6 +1,11 @@
-# cl-rate-limit
+# Rate Limit
 
-Pure Common Lisp token bucket rate limiter library with zero external dependencies.
+Utility library providing specialized functionality for Common Lisp applications.
+
+## Features
+
+- Core functionality implementation
+- Pure Common Lisp (zero external dependencies)
 
 ## Installation
 
@@ -11,45 +16,24 @@ Pure Common Lisp token bucket rate limiter library with zero external dependenci
 ## Usage
 
 ```lisp
-(use-package :cl-rate-limit)
+;; Example usage
+(main-function)
+```
 
-;; Create a rate limiter (10 requests/second, burst of 20)
-(let ((limiter (make-rate-limiter 20 10.0)))
+## Testing
 
-  ;; Non-blocking acquire
-  (when (try-acquire limiter)
-    (process-request))
-
-  ;; Blocking acquire
-  (acquire limiter)
-  (process-request)
-
-  ;; With timeout
-  (acquire limiter :timeout 5.0)
-
-  ;; Check available tokens
-  (tokens-available limiter))
-
-;; Using context macro
-(with-rate-limit (limiter :tokens 1 :timeout 5.0)
-  (make-api-call))
-
-;; Handle rate limit exceeded
-(with-rate-limit (limiter :on-exceeded (return :rate-limited))
-  (process-request))
+```lisp
+(asdf:test-system :cl-rate-limit)
 ```
 
 ## API
 
-- `make-rate-limiter` - Create token bucket limiter
-- `try-acquire` - Non-blocking token acquisition
-- `acquire` - Blocking token acquisition with optional timeout
-- `release` - Return tokens to bucket
-- `tokens-available` - Check current token count
-- `refill-rate` - Get refill rate (tokens/second)
-- `bucket-capacity` - Get maximum capacity
-- `with-rate-limit` - Context macro for rate-limited operations
+- `main-function - Primary function for core functionality`
 
 ## License
 
-BSD-3-Clause. Copyright (c) 2024-2026 Parkian Company LLC.
+BSD-3-Clause License - See LICENSE file for details.
+
+---
+Copyright (c) 2024-2026 Parkian Company LLC. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause
